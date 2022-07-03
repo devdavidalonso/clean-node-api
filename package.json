@@ -4,11 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "test-staged": "jest"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/devdavidalonso/clean-node-api.git"
+  },
+  "standard" : {
+    "env" : ["jest"]
   },
   "author": "",
   "license": "ISC",
