@@ -23,6 +23,12 @@ class HttpResponse {
   }
 }
 
+class MissingParamError extends Error{
+   constructor (paramName) {
+    super(`Missing parameter: ${paramName} `)
+   }
+}
+
 describe("Login router", () => {
   test("Should be 400 if email is null", () => {
     const sut = new LoginRouter();
