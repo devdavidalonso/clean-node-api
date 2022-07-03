@@ -10,17 +10,6 @@
     "type": "git",
     "url": "git+https://github.com/devdavidalonso/clean-node-api.git"
   },
-  "lint-staged": {
-    "*.js": [
-      "standard --fix",
-      "git add"
-    ]
-  },
-  "husk": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "author": "",
   "license": "ISC",
   "bugs": {
