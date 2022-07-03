@@ -2,9 +2,13 @@ const LoginRouter = require("./login-router");
 const MissingParamError = require("../helpers/missing-param-error");
 const LOGIN_FIELDS = require("../enuns/login-parans");
 
+const makeSut = () => {
+     new LoginRouter();
+}
+
 describe("Login router", () => {
   test("Should be 400 if email is null", () => {
-    const sut = new LoginRouter();
+    const sut = makeSut()
     const httpRequest = {
       body: {
         password: "any_Thing",
@@ -17,7 +21,7 @@ describe("Login router", () => {
     );
   });
   test("Should be 400 if password is null", () => {
-    const sut = new LoginRouter();
+    const sut = makeSut()
     const httpRequest = {
       body: {
         email: "any_Thing",
@@ -30,13 +34,15 @@ describe("Login router", () => {
     );
   });
   test("Should be 500 if httpRequest is null", () => {
-    const sut = new LoginRouter();
+    const sut = makeSut()
     const httpResponse = sut.route();
     expect(httpResponse.statusCode).toBe(500);
   });
   test("Should be 500 if httpRequest.body is no provider", () => {
-    const sut = new LoginRouter();
+    const sut = makeSut()
     const httpResponse = sut.route({});
     expect(httpResponse.statusCode).toBe(500);
   });
+
+
 });
