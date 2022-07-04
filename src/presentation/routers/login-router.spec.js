@@ -1,5 +1,6 @@
 const LoginRouter = require("./login-router");
 const MissingParamError = require("../helpers/missing-param-error");
+const deniedAuthorization = require("../helpers/denied-authorization");
 const LOGIN_FIELDS = require("../enuns/login-parans");
 
 const makeSut = () => {
@@ -66,5 +67,18 @@ describe("Login router", () => {
     sut.route(httpRequest);
     expect(authUseCaseSpy.email).toBe(httpRequest.body.email);
     expect(authUseCaseSpy.password).toBe(httpRequest.body.password);
+  });
+  test("Should Call AuthUseCase with invalid parameter", () => {
+    const { sut, authUseCaseSpy } = makeSut();
+    const httpRequest = {
+      body: {
+        email: "invalid_david@gamial.com",
+        password: "invalid__any_Thing",
+        repeatPassword: "invalid__any_Thing",
+      },
+    };
+    const httpResponse =  sut.route(httpRequest);
+    expect(httpResponse.statusCode).toBe(401);
+    expect(httpResponse.body).toEqual(new deniedAuthorization());
   });
 });

@@ -18,6 +18,8 @@ module.exports = class LoginRouter {
     if (!password) {
       return HttpResponse.badRequest(LOGIN_FIELDS.PASSWORD);
     }
+
     this.authUseCase.auth(email, password);
+    return HttpResponse.deniedAuthorization();
   }
 };
