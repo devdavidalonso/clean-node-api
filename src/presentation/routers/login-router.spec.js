@@ -77,8 +77,32 @@ describe("Login router", () => {
         repeatPassword: "invalid__any_Thing",
       },
     };
-    const httpResponse =  sut.route(httpRequest);
+    const httpResponse = sut.route(httpRequest);
     expect(httpResponse.statusCode).toBe(401);
     expect(httpResponse.body).toEqual(new deniedAuthorization());
+  });
+  test("ShouldBe return 500 if AuthUseCase is not provider", () => {
+    const sut = new LoginRouter();
+    const httpRequest = {
+      body: {
+        email: "invalid_david@gamial.com",
+        password: "invalid__any_Thing",
+      },
+    };
+    const httpResponse = sut.route(httpRequest);
+    expect(httpResponse.statusCode).toBe(500);
+  });
+  test("ShouldBe return 500 if AuthUseCase is nos has methodr", () => {
+    class AuthUseCaseSpy {}
+    authUseCaseSpy = new AuthUseCaseSpy();
+    const sut = new LoginRouter(authUseCaseSpy);
+    const httpRequest = {
+      body: {
+        email: "invalid_david@gamial.com",
+        password: "invalid__any_Thing",
+      },
+    };
+    const httpResponse = sut.route(httpRequest);
+    expect(httpResponse.statusCode).toBe(500);
   });
 });
